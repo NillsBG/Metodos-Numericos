@@ -1,9 +1,7 @@
-%% Evaluación de Polinomios - Forma Anidada
 clear all;
 close all;
 clc;
 
-%% 1. Explicación de la Evaluación de P(2)
 fprintf('=== EVALUACIÓN DE P(2) - FORMA ANIDADA ===\n');
 fprintf('Polinomio: P(x) = 4x^3 - 2x^2 + 5x - 1\n');
 fprintf('Forma anidada: ((4x - 2)x + 5)x - 1\n\n');
@@ -16,10 +14,10 @@ fprintf('Paso 5: 17 * 2 = 34\n');
 fprintf('Paso 6: 34 - 1 = 33\n\n');
 fprintf('Resultado final: P(2) = 33\n\n');
 
-%% 2. Función para Evaluación de Polinomios
+
 fprintf('=== FUNCIÓN MATLAB ===\n');
 
-% Ejemplo de uso
+
 coeficientes = [4, -2, 5, -1]; 
 x_valor = 2;
 
@@ -54,7 +52,6 @@ function result = evaluate_polynomial(a, x)
     fprintf('\nResultado final: %.2f\n', result);
 end
 
-%% 3. Pruebas Adicionaless
 fprintf('\n=== PRUEBAS ADICIONALES ===\n');
 test_cases = {
     {[1, 0, -2], 3, 7};    % x^2 - 2 evaluado en x=3
