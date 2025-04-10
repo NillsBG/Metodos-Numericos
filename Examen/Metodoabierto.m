@@ -3,12 +3,11 @@ clear all;
 close all;
 clc;
 
-%% 1. Definición de la función y su derivada
 f = @(x) x^4 - 3*x^3 + 2*x^2 - x + 1;
-df = @(x) 4*x^3 - 9*x^2 + 4*x - 1; % Primera derivada
-d2f = @(x) 12*x^2 - 18*x + 4;      % Segunda derivada (para modificación)
+df = @(x) 4*x^3 - 9*x^2 + 4*x - 1; 
+d2f = @(x) 12*x^2 - 18*x + 4;      
 
-%% 2. Método de Newton-Raphson Estándar
+
 fprintf('\n=== MÉTODO DE NEWTON-RAPHSON ESTÁNDAR ===\n');
 x0 = 2;
 tol = 1e-6;
@@ -24,7 +23,6 @@ while iter < max_iter
     error_rel = abs((x_new - x0)/x_new)*100;
     iter = iter + 1;
     
-    % Almacenar resultados
     results_nr = [results_nr; iter, x0, x_new, f(x_new), error_rel];
     
     fprintf('%3d\t %8.6f\t %8.6f\t %8.2e\t %8.6f\n', ...
@@ -36,7 +34,6 @@ while iter < max_iter
     x0 = x_new;
 end
 
-%% 3. Método de Newton-Raphson Modificado
 fprintf('\n=== MÉTODO DE NEWTON-RAPHSON MODIFICADO ===\n');
 x0 = 2;
 tol = 1e-6;
@@ -44,7 +41,7 @@ max_iter = 100;
 iter = 0;
 results_nrm = [];
 
-% Calculamos la derivada una sola vez en x0
+
 df0 = df(x0); 
 d2f0 = d2f(x0); % Para el método modificado
 
@@ -69,7 +66,6 @@ while iter < max_iter
     x0 = x_new;
 end
 
-%% 4. Comparación de Resultados
 fprintf('\n=== RESUMEN DE RESULTADOS ===\n');
 fprintf('Método\t\t Raíz\t\t Iteraciones\t Error Final\n');
 fprintf('------------------------------------------------\n');
@@ -78,7 +74,6 @@ fprintf('Newton\t\t %f\t %d\t\t %.2e\n', ...
 fprintf('Newton Mod.\t %f\t %d\t\t %.2e\n', ...
         results_nrm(end,3), results_nrm(end,1), results_nrm(end,5));
 
-%% 5. Gráfico de Convergencia
 figure;
 semilogy(results_nr(:,1), results_nr(:,5), 'b-o', 'LineWidth', 2);
 hold on;
