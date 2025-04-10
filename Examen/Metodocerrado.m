@@ -7,13 +7,13 @@ clc; clear; close all;
 f = @(x) x.^3 - 6*x.^2 + 11*x - 6;
 
 % a) Graficar la función en el intervalo [0, 4]
-x_vals = linspace(0, 4, 100);   % Crear 100 puntos equiespaciados entre 0 y 4
-y_vals = f(x_vals);             % Evaluar la función en esos puntos
-plot(x_vals, y_vals);          % Graficar f(x)
-grid on;                       % Mostrar la cuadrícula
-xlabel('x'); ylabel('f(x)');   % Etiquetas
+x_vals = linspace(0, 4, 100);   
+y_vals = f(x_vals);            
+plot(x_vals, y_vals);         
+grid on;                      
+xlabel('x'); ylabel('f(x)');  
 title('Gráfica de f(x) en [0, 4]'); 
-yline(0, '--k');               % Línea horizontal en y = 0 para ver dónde cruza
+yline(0, '--k');              
 
 %% b) Método de Bisección con tolerancia 1e-5 en [2.5, 3.5]
 a = 2.5; b = 3.5; tol = 1e-5;
@@ -37,9 +37,9 @@ while (b - a)/2 > tol
 end
 
 %% Calcular el error relativo porcentual
-raiz = (a + b)/2;        % Raíz aproximada final
-raiz_anterior = c;       % Valor anterior de la raíz
-error_rel = abs((b - a)/raiz) * 100;   % Error relativo porcentual
+raiz = (a + b)/2;       
+raiz_anterior = c;       
+error_rel = abs((b - a)/raiz) * 100;   
 
 %% c) Escribir en tabla (salida por pantalla)
 fprintf('\nResultado final:\n');
