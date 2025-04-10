@@ -54,7 +54,7 @@ function result = evaluate_polynomial(a, x)
     fprintf('\nResultado final: %.2f\n', result);
 end
 
-%% 3. Pruebas Adicionales
+%% 3. Pruebas Adicionaless
 fprintf('\n=== PRUEBAS ADICIONALES ===\n');
 test_cases = {
     {[1, 0, -2], 3, 7};    % x^2 - 2 evaluado en x=3
