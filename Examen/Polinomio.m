@@ -20,7 +20,7 @@ fprintf('Resultado final: P(2) = 33\n\n');
 fprintf('=== FUNCIÓN MATLAB ===\n');
 
 % Ejemplo de uso
-coeficientes = [4, -2, 5, -1]; % Coeficientes de mayor a menor grado
+coeficientes = [4, -2, 5, -1]; 
 x_valor = 2;
 
 resultado = evaluate_polynomial(coeficientes, x_valor);
@@ -36,8 +36,8 @@ function result = evaluate_polynomial(a, x)
         error('Error: El vector de coeficientes está vacío');
     end
     
-    result = a(1); % Inicializa con el coeficiente de mayor grado
-    i = 2;         % Índice para recorrer los coeficientes
+    result = a(1); 
+    i = 2;         
     n = length(a);
     
     fprintf('\nProceso de evaluación:\n');
