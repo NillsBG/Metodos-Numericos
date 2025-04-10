@@ -3,7 +3,7 @@ clc; clear; close all;
 
 %% Ejercicio Serie 2: f(x) = x^3 - 6x^2 + 11x - 6
 
-% Definir la función
+
 f = @(x) x.^3 - 6*x.^2 + 11*x - 6;
 
 % a) Graficar la función en el intervalo [0, 4]
@@ -36,7 +36,7 @@ while (b - a)/2 > tol
     end
 end
 
-%% Calcular el error relativo porcentual
+
 raiz = (a + b)/2;       
 raiz_anterior = c;       
 error_rel = abs((b - a)/raiz) * 100;   
