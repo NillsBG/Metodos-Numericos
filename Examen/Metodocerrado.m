@@ -1,9 +1,6 @@
 %%
 clc; clear; close all;
 
-%% Ejercicio Serie 2: f(x) = x^3 - 6x^2 + 11x - 6
-
-
 f = @(x) x.^3 - 6*x.^2 + 11*x - 6;
 
 % a) Graficar la función en el intervalo [0, 4]
@@ -15,7 +12,7 @@ xlabel('x'); ylabel('f(x)');
 title('Gráfica de f(x) en [0, 4]'); 
 yline(0, '--k');              
 
-%% b) Método de Bisección con tolerancia 1e-5 en [2.5, 3.5]
+%%  Método de Bisección con tolerancia 1e-5 en [2.5, 3.5]
 a = 2.5; b = 3.5; tol = 1e-5;
 fa = f(a); fb = f(b);
 
