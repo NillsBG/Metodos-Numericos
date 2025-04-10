@@ -25,8 +25,6 @@ x_valor = 2;
 
 resultado = evaluate_polynomial(coeficientes, x_valor);
 fprintf('P(%d) = %d\n', x_valor, resultado);
-
-% Prueba con vector vacío (descomentar para probar)
 % resultado = evaluate_polynomial([], 2);
 
 %% Función Principal (guardar en evaluate_polynomial.m)
