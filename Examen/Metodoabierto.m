@@ -43,18 +43,18 @@ results_nrm = [];
 
 
 df0 = df(x0); 
-d2f0 = d2f(x0); % Para el método modificado
+d2f0 = d2f(x0); 
 
 fprintf('Iter\t x_prev\t\t x_new\t\t f(x_new)\t Error Rel%%\n');
 fprintf('------------------------------------------------\n');
 
 while iter < max_iter
-    % Fórmula modificada usando derivada constante
+   
     x_new = x0 - f(x0)/df0 - 0.5*(f(x0)^2*d2f0)/(df0^3);
     error_rel = abs((x_new - x0)/x_new)*100;
     iter = iter + 1;
     
-    % Almacenar resultados
+
     results_nrm = [results_nrm; iter, x0, x_new, f(x_new), error_rel];
     
     fprintf('%3d\t %8.6f\t %8.6f\t %8.2e\t %8.6f\n', ...
