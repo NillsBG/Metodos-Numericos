@@ -1,47 +1,86 @@
-clc; clear; close all;
+% LIMPIEZA DEL ENTORNO DE TRABAJO
+clc;        % Limpia la ventana de comandos
+clear;      % Elimina todas las variables del workspace
+close all;  % Cierra todas las figuras abiertas
 
-% Función para interpolación de Newton de tercer grado
-% Esta función me permite obtener una estimación del valor de una función
-% en un punto dado 'x', usando interpolación de Newton con 4 puntos (grado 3)
+% DEFINICIÓN DE LA FUNCIÓN DE INTERPOLACIÓN
+% Esta función implementa el método de interpolación de Newton para polinomios de tercer grado
+% utilizando diferencias divididas. Recibe como entrada:
+% - x_points: vector con los valores x conocidos (nodos de interpolación)
+% - y_points: vector con los valores f(x) correspondientes
+% - x: punto donde se desea estimar el valor de la función
+% - valor_real: valor conocido de la función en x (para cálculo de error)
+% Devuelve:
+% - y_interp: valor interpolado en el punto x
+% - error: porcentaje de error relativo respecto al valor real
 function [y_interp, error] = newton_interp_3rd_degree(x_points, y_points, x, valor_real)
-    % Calculo la tabla de diferencias divididas
-    n = length(x_points);             % Número de puntos conocidos
-    F = zeros(n, n);                  % Inicializo la matriz F para las diferencias divididas
-    F(:,1) = y_points;                % La primera columna son los valores de y conocidos
     
-    % Aquí lleno la tabla de diferencias divididas
-    for j = 2:n
-        for i = 1:n-j+1
-            % Fórmula para calcular las diferencias divididas
+    % CONSTRUCCIÓN DE LA TABLA DE DIFERENCIAS DIVIDIDAS
+    
+    % n: número de puntos de interpolación (para grado 3, n=4)
+    n = length(x_points);
+    
+    % F: matriz que almacenará las diferencias divididas
+    % La estructura de la matriz será:
+    % F(i,j) = f[x_i, x_i+1, ..., x_i+j-1]
+    F = zeros(n, n);
+    
+    % La primera columna contiene los valores de la función (diferencias de orden 0)
+    F(:,1) = y_points;
+    
+    % Cálculo de las diferencias divididas de órdenes superiores
+    for j = 2:n               % Columnas de la tabla (desde orden 1 hasta n-1)
+        for i = 1:n-j+1       % Filas de la tabla para cada orden
+            % Fórmula de diferencias divididas:
+            % f[x_i,...,x_i+j-1] = (f[x_i+1,...,x_i+j-1] - f[x_i,...,x_i+j-2])/(x_i+j-1 - x_i)
             F(i,j) = (F(i+1,j-1) - F(i,j-1)) / (x_points(i+j-1) - x_points(i));
         end
     end
-
-    % Evaluo el polinomio en el punto x
-    y_interp = F(1,1);                % Empiezo con el término independiente
-    for k = 2:n
-        term = F(1,k);                % Tomo el coeficiente correspondiente
+    
+    % EVALUACIÓN DEL POLINOMIO INTERPOLANTE DE NEWTON
+    
+    % El polinomio tiene la forma:
+    % P(x) = f[x0] + f[x0,x1](x-x0) + f[x0,x1,x2](x-x0)(x-x1) + ...
+    
+    % Inicialización con el término constante (f[x0])
+    y_interp = F(1,1);
+    
+    % Suma de los términos de orden superior
+    for k = 2:n               % Para cada término del polinomio (desde orden 1 hasta n-1)
+        term = F(1,k);        % Coeficiente del término (diferencia dividida)
+        
+        % Productorio de los factores (x - x_i)
         for m = 1:k-1
-            % Multiplico por los factores (x - x_i)
             term = term * (x - x_points(m));
         end
-        % Sumo el término al valor aproximado
+        
+        % Agregar el término al polinomio
         y_interp = y_interp + term;
     end
-
-    % Calculo el error porcentual con respecto al valor real
+    
+    % CÁLCULO DEL ERROR RELATIVO PORCENTUAL
+    % Error = |valor estimado - valor real| / |valor real| * 100
     error = abs((y_interp - valor_real) / valor_real) * 100;
 end
 
-% Datos conocidos (puntos cercanos entre sí)
-% Aquí estoy usando puntos de la función ln(x)
-x_points = [1, 1.5, 2.5, 4];                         % Valores de x conocidos
-y_points = [0, 0.405465, 0.916291, 1.386294];        % ln(x) en los puntos anteriores
-x = 2;                                               % Punto donde quiero estimar
-valor_real = 0.6931472;                              % Valor real de ln(2) para comparar
+% DATOS DEL PROBLEMA ESPECÍFICO
+% Puntos conocidos de la función ln(x)
+x_points = [1, 1.5, 2.5, 4];          % Valores de x donde conocemos ln(x)
+y_points = [0, 0.405465, 0.916291, 1.386294];  % Valores correspondientes de ln(x)
 
-% Llamo a la función de interpolación
+% Punto donde queremos estimar el valor
+x = 2;                                 % Queremos estimar ln(2)
+
+% Valor real de ln(2) para comparación (precisión de 7 decimales)
+valor_real = 0.6931472;
+
+% EJECUCIÓN DE LA INTERPOLACIÓN
+% Llamamos a nuestra función con los datos del problema
 [y_est, error] = newton_interp_3rd_degree(x_points, y_points, x, valor_real);
 
-% Imprimo el resultado con el error relativo
-fprintf('Estimation: ln(2) ≈ %.6f, Error = %.2f%%\n',y_est,error);
+% PRESENTACIÓN DE RESULTADOS
+% Mostramos la estimación obtenida y el error porcentual
+fprintf('Estimación mediante interpolación cúbica:\n');
+fprintf(' ln(2) ≈ %.6f\n', y_est);
+fprintf(' Error relativo: %.2f%%\n', error);
+fprintf(' Valor real: %.7f\n', valor_real);
